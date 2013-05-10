@@ -1,3 +1,8 @@
-## A New Post
+var test, testing;
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+testing = function(something, callback) {
+  console.log("I'm going to test " + something + " pretty soon now.")
+  
+
+console.log("Hello world");
+
