@@ -1,8 +1,4 @@
-var test, testing;
+test = "Test"
 
-testing = function(something, callback) {
-  console.log("I'm going to test " + something + " pretty soon now.")
-  
-
-console.log("Hello world");
-
+test = () ->
+  console.log "I'm testing"
