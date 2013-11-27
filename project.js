@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', function () {
     // This is basically fun.
     var snap = new Snap(window.innerWidth, window.innerHeight),
         bug = snap.circle(100, 100, 50);
+    //
+    bug.mouseover(function () {
+        this.attr({
+            'stroke': "black",
+            'strokeWidth': 10
+        });
+    });
+    bug.mouseout(function () {
+        this.attr({
+            'stroke': "white",
+            'strokeWidth': 0
+        });
+    });
     bug.click(function () {
         var r = Math.floor(Math.random() * (window.innerWidth / 4)) + 10,
             cx = Math.floor(Math.random() * (window.innerWidth - (r * 2))) + r,
