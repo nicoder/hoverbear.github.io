@@ -1,7 +1,7 @@
 /*jslint browser:false*/
 /*globals Snap,alert,window,document,mina*/
 
-document.addEventListener('DOMContentLoaded', function () {
+var start = function start() {
     'use strict';
     // This is basically fun.
     var snap = new Snap(window.innerWidth, window.innerHeight),
@@ -37,4 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
             'fill': fill.hex
         }, time, mina.easein);
     });
-});
+};
+
+document.addEventListener('DOMContentLoaded', start);
