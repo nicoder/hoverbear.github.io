@@ -1,0 +1,17 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            'Andrew Hobden'
+tagline:          'Exploring the digital frontier.'
+description:      'Public thoughts and musings about things that interest me.'
+url:              http://hoverbear.org
+paginate:         5
+
+author:
+  name:           'Andrew Hobden'
+  url:            'http://hoverbear.org'

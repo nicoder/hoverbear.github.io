@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Andrew Hobden</title>
+ <link href="http://hoverbear.org/atom.xml" rel="self"/>
+ <link href="http://hoverbear.org/"/>
+ <updated>2014-06-09T22:46:02-07:00</updated>
+ <id>http://hoverbear.org</id>
+ <author>
+   <name>Andrew Hobden</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>Hello, world.</title>
+   <link href="http://hoverbear.org/2014/06/09/hello/"/>
+   <updated>2014-06-09T00:00:00-07:00</updated>
+   <id>http://hoverbear.org/2014/06/09/hello</id>
+   <content type="html">&lt;p&gt;The genesis post.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Do Stuff&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+ </entry>
+ 
+
+</feed>
