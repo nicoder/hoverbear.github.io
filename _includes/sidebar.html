@@ -16,7 +16,7 @@
       `layout: page` in the front-matter. See readme for usage.
     {% endcomment %}
 
-    {% assign pages_list = site.pages %}
+    {% assign pages_list = site.pages | sort:"path" %}
     {% for node in pages_list %}
       {% if node.title != null %}
         {% if node.layout == "page" %}
@@ -35,7 +35,9 @@
      <a href="http://pgp.mit.edu/pks/lookup?op=vindex&search=0x91553D81641807CE">GPG Key</a>
      <br>
      <div style="text-align: center;">
-        <small>C650 5804 5649 F04A 7831 ED3A 9155 3D81 6418 07CE</small>
+        <small>
+           Fingerprint: <br>
+           C650 5804 5649 F04A 7831 ED3A 9155 3D81 6418 07CE</small>
      </div>
   </div>
 </div>
