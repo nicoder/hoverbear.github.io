@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A Novel Initialization Solution
+title: Async Auto
 ---
 
 I've been exploring the handy [`async`](https://github.com/caolan/async) over the last few days in the lab. One of my projects is a MongoDB API Adapter in Node.js and I was pleased by a novel way of handling control flow.
