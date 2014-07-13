@@ -9,7 +9,7 @@ I've been exploring the handy [`async`](https://github.com/caolan/async) over th
 
 Consider the following dependency graph:
 
-<svg width="100%" viewBox="0 0 1344 386" version="1.1">
+<svg width="100%" height="200px" viewBox="0 0 1344 386" version="1.1">
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Rectangle-2-+-Database-Connection" transform="translate(390.000000, 44.000000)">
@@ -82,7 +82,7 @@ With `async` this could be modelled like so:
 			httpMiddleware: [ 'http', httpMiddleware ],
 			routes: [ 'http', 'schemas', routes ]
 		}, listen);
-		
+
 		// Definitions of functions below.
 	}());
 ```
@@ -104,7 +104,7 @@ For example, `dbConn` produces a `connection` variable, and `schemas` consumes i
 			callback(error, null);
 		});
 	}
-	
+
 	function schemas(callback, results) {
 		// Do a bunch of stuff.
 		// results.dbConn has the connection.
