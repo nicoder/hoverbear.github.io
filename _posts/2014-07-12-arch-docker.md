@@ -17,6 +17,7 @@ You need a base image of Arch Linux that you're sure is a-okay.
 
 ### Dependencies ###
 You'll need:
+
 * `gpg`
 * `curl`
 * `docker`
@@ -52,6 +53,7 @@ You should notice you shell looks like `sh-4.3#`. Furthermore, `pacman` should b
 
 ### Setup ###
 **In the chroot**:
+
 ```bash
 # Setup a mirror.
 echo 'Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch' > /etc/pacman.d/mirrorlist
@@ -69,6 +71,7 @@ locale-gen
 exit
 ```
 **Outside of the chroot** (You may need to be root):
+
 ```bash
 # udev doesnt work in containers, rebuild /dev
 # Taken from https://raw.githubusercontent.com/dotcloud/docker/master/contrib/mkimage-arch.sh
@@ -92,6 +95,7 @@ ln -sf /proc/self/fd $DEV/fd
 
 ### Import the Image ###
 **Outside of the chroot** (You may need to be root):
+
 ```bash
 USER='hoverbear'
 tar --numeric-owner -C root.x86_64 -c .  | docker import - $USER/archlinux
@@ -106,6 +110,7 @@ Give it a try!
 
 # A full, start to end script #
 Save this somewhere and run it.
+
 ```bash
 #!/bin/bash
 set -e
