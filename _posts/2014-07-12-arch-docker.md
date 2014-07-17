@@ -3,7 +3,7 @@ layout: post
 title: Arch Docker Baseimage
 ---
 
-# Problem #
+## Problem ##
 You need a base image of Arch Linux that you're sure is a-okay.
 
 ### Compounding Factors ###
@@ -13,7 +13,7 @@ You need a base image of Arch Linux that you're sure is a-okay.
 * You don't have an existing Arch Linux install, which the [current scripts](https://github.com/dotcloud/docker/blob/master/contrib/mkimage-arch.sh) require. and don't want to make one, or use someone else's container or install to build your image, again, going back to trust.
 * The Arch Netinstall ISO doesn't have enough disposable storage to run the [current scripts](https://github.com/dotcloud/docker/blob/master/contrib/mkimage-arch.sh).
 
-# Solution #
+## Solution ##
 
 ### Dependencies ###
 You'll need:
@@ -108,5 +108,5 @@ docker run --rm=true -t -i $USER/archlinux /bin/bash
 Give it a try!
 
 
-# A full, start to end script #
+## A full, start to end script ##
 You can grab a fullly automated script [here](https://github.com/Hoverbear/docker-archlinux).
