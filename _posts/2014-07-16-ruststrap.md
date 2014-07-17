@@ -6,6 +6,7 @@ title: ruststrap
 This script downloads the latest Rust and/or Cargo nightly and installs (or uninstalls) it as needed.
 
 **The script is available [here](http://www.hoverbear.org/public/code/ruststrap.sh).**
+
 **Note:** Linux 64 bit only for now. If you'd like to add support for your platform please do so and let me know!
 
 The steps it takes are:
