@@ -1,23 +1,22 @@
 ---
 layout: post
-title: ruststrap
+title: Rustup.sh
 ---
 
-This script downloads the latest Rust and/or Cargo nightly and installs (or uninstalls) it as needed.
 
-**The script is available [here](http://www.hoverbear.org/public/code/ruststrap.sh).**
+Using Rust can be a bit frustrating if you're trying to track `master`. The language is currently moving fast and you generally want to work on the latest nightly.
 
-**Note:** Linux 64 bit only for now. If you'd like to add support for your platform please do so and let me know!
+You might want to add this script to your `$PATH`. If you haven't already, create a `~/bin/` folder and add it to your path in your `~/.zshrc` or `~/.bashrc` as below. Then you'll want to open a new terminal or source the environment again.
 
-The steps it takes are:
+```bash
+echo 'export PATH=$PATH:/home/your-username/bin' > ~/.bashrc
+```
 
-* Download an extract Rust into a temporary directory.
-* Run the `install.sh` script with the options provided. (Like `--uninstall`)
-* Output necessary config options for the user.
+Then download the script, make it executable.
 
-To use:
+```bash
+curl http://rust-lang.org/rustup.sh > ~/bin/rustup
+chmod +x ~/bin/rustup
+```
 
-* Put the script code into any file. (Easiest way is `curl http://www.hoverbear.org/public/code/ruststrap.sh > ruststrap.sh`)
-* `chmod +x ruststrap.sh`
-* Use `./ruststrap.sh rustc` to install `rust`.
-* Use `./ruststrap.sh cargo` to install `cargo`.
+By default, it will install `rust` and `cargo`, the package manager. Just run it whenever you want to update and it will get you to the new version.
