@@ -14,6 +14,7 @@ Some links we'll need:
 ### Getting Leiningen
 
 Assuming `~/bin/` is a folder in your `$PATH`
+
 ```bash
 DEST=~/bin/lein
 curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > $DEST
