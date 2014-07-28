@@ -275,7 +275,7 @@ ADD target/base+system+user+dev/learning.war /opt/wildfly/standalone/deployments
 
 Then a `learning/Makefile` to (optionally) make things a bit smoother:
 
-```makefile
+```Makefile
 all:
 	docker rm -f immut-test || true
 	docker rmi immut-learning || true
