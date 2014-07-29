@@ -267,7 +267,7 @@ Now, navigate back to your [Keycloak container](https://localhost:8080/auth), lo
 
 Since we'll be using a Docker container for the application, create a `learning/Dockerfile` with the following:
 
-```dockerfile
+```
 FROM jboss/keycloak-adapter-wildfly
 RUN /opt/wildfly/bin/add-user.sh admin hunter2 --silent
 ADD target/base+system+user+dev/learning.war /opt/wildfly/standalone/deployments/ROOT.war
@@ -275,7 +275,7 @@ ADD target/base+system+user+dev/learning.war /opt/wildfly/standalone/deployments
 
 Then a `learning/Makefile` to (optionally) make things a bit smoother:
 
-```Makefile
+```make
 all:
 	docker rm -f immut-test || true
 	docker rmi immut-learning || true
