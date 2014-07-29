@@ -359,3 +359,6 @@ admin
 ```
 
 You should also be able to hit all other routes as the admin. Be sure to explore Keycloak, as it has many features regarding roles, permissions, and other things not covered here.
+
+
+**Special thanks to all the folks on #immutant, especially bbrowning, tcrawley, and jcrossley3 for their help!**
