@@ -25,6 +25,8 @@ Then, to erect the container ([Source](https://github.com/jboss/dockerfiles/blob
 docker run -it --name keycloak -p 8080:8080 -p 9090:9090 jboss/keycloak
 ```
 
+> Use the  `-d` flag to daemonize the service so it doesn't die with the tty. You can check the logs later with `docker logs -f keycloak`
+
 Finally, you should be able to browse to [http://localhost:8080/](http://localhost:8080/) and see the friendly Wildfly logo and welcome screen. Visiting [http://localhost:8080/auth/](http://localhost:8080/auth/) should yield a Keycloak welcome screen.
 
 ### Getting into Keycloak
