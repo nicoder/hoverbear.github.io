@@ -89,15 +89,23 @@ Your `learning/project.clj` needs to be modified to look similar to this:
   :license {:name "MPL"
             :url "http://choosealicense.com/licenses/mpl-2.0/"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.immutant/immutant "2.x.incremental.186"]
+                 [org.immutant/immutant "2.x.incremental.191"]
                  [compojure "1.1.8"]]
   :repositories [["Immutant incremental builds"
                   "http://downloads.immutant.org/incremental/"]]
   :plugins [[lein-immutant "2.0.0-SNAPSHOT"]]
-  :ring {:handler learning.core/app}
   :main ^:skip-aot learning.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  ; Plugin configuration.
+  :ring {:handler learning.core/app}
+  :immutant {
+     :war {
+        :dev? false
+        :resource-dir "resources"
+        :nrepl {
+          :port 8888
+          :start? true}}})
 ```
 
 Now change your `learning/src/learning/core.clj` file to contain the following:
@@ -107,7 +115,7 @@ Now change your `learning/src/learning/core.clj` file to contain the following:
   (:use compojure.core)
   (:require [compojure.route       :as route]
             [immutant.web          :as web]
-            [immutant.web.javax    :as javax])
+            [immutant.web.servlet  :as servlet])
   (:gen-class))
 
 
@@ -169,7 +177,7 @@ Now change your `learning/src/learning/core.clj` file to contain the following:
   "Start the server"
   [& args]
   ; Start the server.
-  (web/run (javax/create-servlet app) :port 8081))
+  (web/run (servlet/create-servlet app) :port 8081))
 ```
 
 The `get-token` function returns an object that you can run things like `(.getPreferredUsername token)`. [This](https://docs.jboss.org/keycloak/docs/1.0-beta-3/javadocs/org/keycloak/representations/IDToken.html) documents the different methods you can use.
@@ -191,13 +199,13 @@ The routes in our code above covers much, much more then those, but you can play
 
 However, Immutant does not currently provide an easy way to modify the `web.xml` in the war files it builds. Thankfully, since a war is a jar, and a jar is a zip, we can just add it in after.
 
-First, lets make a folder for this type of data in `/learning`.
+First, lets make a folder for this type of data in `/learning/resources`.
 
 ```bash
-mkdir WEB-INF
+mkdir resources/WEB-INF
 ```
 
-Then, create a `learning/WEB-INF/web.xml` with the following XML:
+Then, create a `learning/resources/WEB-INF/web.xml` with the following XML:
 
 ```xml
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
@@ -281,15 +289,12 @@ Then a `learning/Makefile` to (optionally) make things a bit smoother:
 all:
 	docker rm -f immut-test || true
 	docker rmi immut-learning || true
-	lein immutant uberwar
-	zip target/base+system+user+dev/learning.war WEB-INF/*
+	lein immutant war
 	docker build -t immut-learning .
 
 run:
 	docker run --name immut-test --rm -t -i -p 127.0.0.1:8081:8080 -p 127.0.0.1:9991:9990 --link keycloak:auth immut-learning
 ```
-
-Take note of the `zip` line which injects the two files we placed in `WEB-INF` into the war.
 
 **Just one more thing:** Due to the linking between containers, you may need to add a line to your `/etc/hosts` so that the application will appropriately talk to the Keycloak server. The line should look like this:
 

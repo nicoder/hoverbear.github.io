@@ -73,13 +73,13 @@ ADD target/base+system+user+dev/learning.war /opt/wildfly/standalone/deployments
 Wildfly seems to expect `.war` files for deployment. Thankfully Immutant provides this via the plugin declared in the `project.clj`.
 
 ```bash
-lein immutant uberwar
+lein immutant war
 ```
 
 The output should be similar to:
 
 ```bash
-➜ lein immutant uberwar
+➜ lein immutant war
 Compiling learning.core
 Created /home/hoverbear/learning/target/uberjar/learning-0.1.0-SNAPSHOT.jar
 Created /home/hoverbear/learning/target/uberjar/learning-0.1.0-SNAPSHOT-standalone.jar
