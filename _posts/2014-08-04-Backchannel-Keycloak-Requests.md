@@ -44,7 +44,7 @@ The `get-session` function produces a session which can be utilized.
     session))
 ```
 
-`back-channel-handler`, which is bound to the `/backchannel` route.
+`back-channel-handler`, which is bound to the `/backchannel` route, responds to the request with information regarding the users resource access, as well as the data sent from the provider.
 
 ```clojure
 (defn back-channel-handler
