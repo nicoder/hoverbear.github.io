@@ -102,7 +102,7 @@ Your `learning/project.clj` needs to be modified to look similar to this:
   :immutant {
      :war {
         :dev? false
-        :resource-dir "resources"
+        :resource-paths ["resources"]
         :nrepl {
           :port 8888
           :start? true}}})
@@ -195,7 +195,7 @@ The routes in our code above covers much, much more then those, but you can play
 
 ### Integrating Keycloak
 
-[Keycloak's User Guide](http://keycloak.jboss.org/docs.html) specifies how to secure the the application via the `web.xml`. If you're familiar with JBoss (I'm not) this is apparently a fairly standard way of securing the application.
+[Keycloak's User Guide](http://keycloak.jboss.org/docs.html) specifies how to secure the application via the `web.xml`. If you're familiar with JBoss (I'm not) this is apparently a fairly standard way of securing the application.
 
 However, Immutant does not currently provide an easy way to modify the `web.xml` in the war files it builds. Thankfully, since a war is a jar, and a jar is a zip, we can just add it in after.
 
