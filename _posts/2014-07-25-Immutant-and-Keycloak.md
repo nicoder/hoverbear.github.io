@@ -49,7 +49,7 @@ Browse to the **Applications** menu and hit the blue **Add Application** button.
 
 **Access Type:** confidential
 
-**Redirect URI:** http://localhost:8081/*
+**Redirect URI:** http://localhost:8081/\*
 
 After hitting save, you'll have the opportunity to add more information. For this exploration, we don't need to add any more information here.
 
