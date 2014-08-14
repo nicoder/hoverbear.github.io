@@ -87,14 +87,14 @@ Lets take a closer look at the composition idea...
 Nirvana is being able to compose a series of functions together without introducing a tight dependency between them, such that they could be moved or changed without needing to be concerned with how this might affect the other functions. For example, lets say we have some functions with the following signatures:
 
 ```rust
-fn half(value: f64)    -> f64; // This could fail. (5 / 2 == ??)
+fn log(value: f64)     -> f64; // This could fail. (log(-2) == ??)
 fn sqrt(value: f64)    -> f64; // This could fail. (sqrt(-2) == ??)
 fn square(value: f64)  -> f64;
 fn double(value: f64)  -> f64;
 fn inverse(value: f64) -> f64;
 ```
 
-Quite the little math library we have here! How about we come up with a way to turn `20` into `20`, using a round-about pipeline?
+Quite the little math library we have here! How about we come up with a way to turn `20` into something else, using a round-about pipeline?
 
 ```rust
 sqrt((-1 * ((-1 * (20 * 2)) / 2))^2)
@@ -107,7 +107,7 @@ With our little library it'd look something like this:
 // `Null` isn't a real type in Rust.
 fn main () {
     let number: f64 = 20.;
-    match half(inverse(double(number))) {
+    match log(inverse(double(number))) {
         x => {
             match sqrt(square(inverse(x)))) {
                 y => println!("The result is {}", y),
@@ -126,22 +126,25 @@ Lets see what the same code would look like using the `Option` monad. In this ex
 ```rust
 fn main () {
     let number: f64 = 20.;
+    // Perform a pipeline of options.
     let result = Some(number)
-        .map(double) // described later.
+        .map(inverse) // Described below.
+        .map(double) 
         .map(inverse)
-        .and_then(half) // described later.
-        .map(inverse)
+        .and_then(log) // Described below.
         .map(square)
         .and_then(sqrt);
+    // Extract the result.
     match result {
         Some(x) => println!("Result was {}.", x),
         None    => println!("This failed.")
     }
 }
-fn half(value: f64) -> Option<f64> {
-    match value {
-        x if (x as int) % 2 == 0 => Some(x / 2.),
-        _                        => None
+// You can ignore these.
+fn log(value: f64) -> Option<f64> {
+    match value.log2() {
+        x if x.is_normal() => Some(x),
+        _                  => None
     }
 }
 fn sqrt(value: f64) -> Option<f64> {
@@ -161,7 +164,7 @@ fn inverse(value: f64) -> f64 {
 }
 ```
 
-This code handles all possible result branches cleanly, and the author need not explicitly deal with each possible `None` result, they only need to handle one. If any of the functions which may fail (called by `and_then()`) do fail, the rest of the computation is bypassed. Additionally, it makes expressing and understanding the pipeline of computations much easier.
+This code handles all possible result branches cleanly, and the author need not explicitly deal with each possible `None` result, they only need to handle the end result. If any of the functions which may fail (called by `and_then()`) do fail, the rest of the computation is bypassed. Additionally, it makes expressing and understanding the pipeline of computations much easier.
 
 `map` and `and_then` (along with a gamut of other functions listed [here](http://doc.rust-lang.org/std/option/type.Option.html)) provide a robust set of tools for composing functions together. Lets take a look, their signatures are below.
 
