@@ -3,7 +3,7 @@ layout: post
 title: Option Monads in Rust
 ---
 
-One common monadic structure is the `Option` or `Maybe` type. This can be seen as an encapsulation type. Consider a function which may fail to produce a meaningful value for certain inputs. For example, 
+One common monadic structure is the `Option` (or `Maybe` in Haskell and other languages) type. This can be seen as an encapsulation type. Consider a function which may fail to produce a meaningful value for certain inputs. For example, 
 
 ```rust
 fn main () {
@@ -13,7 +13,7 @@ fn main () {
 }
 ```
 
-The `from_str` function cannot return a meaningful value for `"Potato"`. Rust (and many other functional languages) does not have `null`, so what should we return? This is where an `Option` type becomes useful. In our example, instead of returning an `int` type `from_str` returns an `Option<int>` type.
+The `from_str` function cannot return a meaningful value for `"Potato"`. Rust (and many other functional languages) does not have `null`, so what should we return? This is where an `Option` type becomes useful. In our example, instead of returning an `int` type, the `from_str` function returns an `Option<int>` type.
 
 In Rust, the `Option` enum is represented by either `Some(x)` or `None`, where `x` is the encapsulated value. In this way, the `Option` monad can be thought of like a box. It encapsulates the value `x`, where `x` is any type. Rust defines an `Option` as such, where `<T>` and `(T)` denote that it handles a generic type, meaning that `T` could be an `int`, a `str`, a `vec`, or anything else, even other `Option` types.
 
@@ -25,7 +25,7 @@ enum Option<T> { None, Some(T) }
 
 Since we can see an `Option` as a box, or encapsulation type, we need to be able to put things into the box, or take things out.
 
-Putting a value into an `Option` is delightfully simple. Simply use `Some(x)` or `None` in place of `x` or (an imaginary) `null`. Most of the time, you will receive or return an `Option` based on input, rather then just creating them directly.
+Putting a value into an `Option` is delightfully simple. Simply use `Some(x)` or `None` in place of `x` or (an imaginary) `null`. Most of the time, you will receive or return an `Option` based on input, rather than just creating them directly. Here are some examples of different techniques.
 
 ```rust
 fn main () {
@@ -47,9 +47,9 @@ fn some_on_even(val: int) -> Option<int> {
 }
 ```
 
-To take something out of the `Option` we need to be able to extract, or "unwrap" the value. There are a number of ways to do this. Some common methods are with a `match`, or `.expect()`. 
+To take something out of the `Option` we need to be able to extract, or "unwrap" the value. There are a number of ways to do this. Some common methods are with a `match` or `.expect()`. 
 
-> If you're seeking to write code that won't crash, avoid `.expect()` and it's cousin `.unwrap()` and use safer alternatives like `unwrap_or_default()`, or `unwrap_or()`.
+> If you're seeking to write code that won't crash, avoid `.expect()` and it's cousin `.unwrap()` and use safer alternatives like `unwrap_or_default()` or `unwrap_or()`.
 
 ```rust
 fn main () {
@@ -74,7 +74,7 @@ By now, you're probably asking yourself something similar to the following:
 
 > So why not just have `null`? What does an `Option` monad provide that's more?
 
-That's a very good question. What are the benefits of this idiom?
+That's a very good question. What are the benefits of this paradigm?
 
 * **You must handle all possible returns, or lack thereof.** The compiler will emit errors if you don't appropriately handle an `Option`. You can't just *forget* to handle the `None` (or 'null') case.
 * **Null doesn't exist.** It's immediately apparent to readers and consumers which functions might not return a meaningful value. Attempting to use a value from an `Option` without handling it results in a compiler error.
@@ -125,7 +125,7 @@ Lets see what the same code would look like using the `Option` monad. In this ex
 
 ```rust
 fn main () {
-    let number: f64 = -5.;
+    let number: f64 = 20.;
     let result = Some(number)
         .map(double) // described later.
         .map(inverse)
@@ -166,9 +166,13 @@ This code handles all possible result branches cleanly, and the author need not 
 `map` and `and_then` (along with a gamut of other functions listed [here](http://doc.rust-lang.org/std/option/type.Option.html)) provide a robust set of tools for composing functions together. Lets take a look, their signatures are below.
 
 ```rust
-fn and_then<U>(self, f: |T| -> Option<U>) -> Option<U>
 fn map<U>     (self, f: |T| -> U)         -> Option<U>
+fn and_then<U>(self, f: |T| -> Option<U>) -> Option<U>
 ```
+
+`map` provides a way to apply a function of the signature `|T| -> U` to an `Option<T>`, returning an `Option<U>`. This is ideal for functions like `double()` which don't return an `Option`.
+
+`and_then` allows you to apply a `|T| -> Option<U>` function to an `Option<T>`, returning an `Option<U>`. This allows for functions which may return no value, like `sqrt()`, to be applied.
 
 
 
