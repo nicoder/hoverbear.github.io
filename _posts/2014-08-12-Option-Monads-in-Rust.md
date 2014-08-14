@@ -94,7 +94,11 @@ fn double(value: f64)  -> f64;
 fn inverse(value: f64) -> f64;
 ```
 
-Quite the little math library we have here! How about we come up with a way to turn `20` into `10`, using a round-about pipeline, like `sqrt((-1 * ((-1 * (20 * 2)) / 2))^2)`?
+Quite the little math library we have here! How about we come up with a way to turn `20` into `20`, using a round-about pipeline?
+
+```rust
+sqrt((-1 * ((-1 * (20 * 2)) / 2))^2)
+```
 
 With our little library it'd look something like this:
 
