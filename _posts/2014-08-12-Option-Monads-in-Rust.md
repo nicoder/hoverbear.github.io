@@ -97,7 +97,7 @@ fn inverse(value: f64) -> f64;
 Quite the little math library we have here! How about we come up with a way to turn `20` into something else, using a round-about pipeline?
 
 ```rust
-sqrt((-1 * ((-1 * (20 * 2)) / 2))^2)
+sqrt(-1 * (log(-1 * (20 * 2)))^2)
 ```
 
 With our little library it'd look something like this:
@@ -114,12 +114,12 @@ fn main () {
                 Null => println!(".sqrt failed.")
             }
         },
-        Null => println!(".half failed.")
+        Null => println!(".log failed.")
     }
 }
 ```
 
-In this case, we had two functions which could fail, since we didn't have an `Option` type, we must explicitly handle possible `Null` values. Do note that the onus was on **the programmer** to know when a `Null` might be returned, and remember to handle it.
+In this case, we had two functions which could fail, since we didn't have an `Option` type, the author must be aware of and handle possible `Null` values. Note that the onus was on the programmer to know when a `Null` **might** be returned, and **remember** to handle it, not on the compiler.
 
 Lets see what the same code would look like using the `Option` monad. In this example, all of the functions are appropriately defined.
 
@@ -177,6 +177,43 @@ fn and_then<U>(self, f: |T| -> Option<U>) -> Option<U>
 
 `and_then` allows you to apply a `|T| -> Option<U>` function to an `Option<T>`, returning an `Option<U>`. This allows for functions which may return no value, like `sqrt()`, to be applied.
 
+### Examples
+
+**Working with Options in Vectors**. Parsing a vector of strings into integers. Note that Rust's iterators are lazy, so if `collect()` isn't called, the iterator itself could be composed with others.
+
+```rust
+fn main () {
+    let strings = vec!("4", "12", "foo", "15", "bar", "baz", "1");
+    let numbers: Vec<int> = strings.iter()
+        // `filter_map` transforms `Vec<&'static str>` to `Vec<int>`
+        // Any `None` will be removed,
+        // while any `Some` will be unwrapped.
+        .filter_map(|&x| from_str::<int>(x))
+        // `collect` forces iteration through the lazy iterator.
+        .collect();
+    println!("{}", numbers);
+}
+```
+
+**A simple pipeline**. This example takes a strong and splits it into an iterator. `next()` fetches the next token, which is an `Option`.
+
+```rust
+fn main () {
+    let mut input = "15 Bear".split(' ');
+    // Need to pull the number and parse it.
+    let number = input.next()
+        // Process Option<&'static str> to Option<int>
+        .and_then(|x| from_str::<int>(x))
+        .expect("Was not provided a valid number.");
+    // The next token is our animal.
+    let animal = input.next()
+        .expect("Was not provided an animal.");
+    // Ouput `number` times.
+    for x in std::iter::range(0, number) {
+        println!("{} {} says hi!", animal, x)
+    }
+}
+```
 
 
 
