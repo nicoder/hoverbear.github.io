@@ -78,6 +78,7 @@ That's a very good question. What are the benefits of this paradigm?
 
 * **You must handle all possible returns, or lack thereof.** The compiler will emit errors if you don't appropriately handle an `Option`. You can't just *forget* to handle the `None` (or 'null') case.
 * **Null doesn't exist.** It's immediately apparent to readers and consumers which functions might not return a meaningful value. Attempting to use a value from an `Option` without handling it results in a compiler error.
+* **Values aren't boxed.** `Option` values don't wrap pointers, they wrap values. In order to have a `null`, you necessarily need a pointer. ([Thanks cmr!](http://www.reddit.com/r/rust/comments/2dnx7k/exploring_the_option_monad_with_rust/cjrca88))
 * **Composition becomes easy.** The `Option` monad becomes much more powerful when it is used in composition, as it's characteristics allow for pipelines to be created which don't need to explicitly handle errors at each step.
 
 Lets take a closer look at the composition idea...
