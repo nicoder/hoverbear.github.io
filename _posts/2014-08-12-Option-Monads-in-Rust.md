@@ -40,7 +40,7 @@ fn main () {
 fn some_on_even(val: int) -> Option<int> {
     match val {
         // Matches an even number.
-        even if even % 2 == 0 => Some(even),
+        x if x % 2 == 0 => Some(x),
         // Matches anything else.
         _                     => None
     }
@@ -174,9 +174,17 @@ fn map<U>     (self, f: |T| -> U)         -> Option<U>
 fn and_then<U>(self, f: |T| -> Option<U>) -> Option<U>
 ```
 
+### Functor Interface: `.map()`
+
 `map` provides a way to apply a function of the signature `|T| -> U` to an `Option<T>`, returning an `Option<U>`. This is ideal for functions like `double()` which don't return an `Option`.
 
+This call corresponds to `fmap` in Haskell, which is part of a functor. Monads have this trait because every monad is a functor. 
+
+### Monad Interface: `.and_then()`
+
 `and_then` allows you to apply a `|T| -> Option<U>` function to an `Option<T>`, returning an `Option<U>`. This allows for functions which may return no value, like `sqrt()`, to be applied.
+
+This call corresponds to `bind` in Haskell and theoretical Monad definitions. Meanwhile unwrapping `Some<T>` or `None` is the equivalent of `return`. (Thanks to [dirkt](http://www.reddit.com/r/rust/comments/2dnx7k/exploring_the_option_monad_with_rust/cjrr48c))
 
 ### Examples
 
@@ -216,6 +224,9 @@ fn main () {
 }
 ```
 
+## Discussion:
+* [Reddit Post](http://www.reddit.com/r/rust/comments/2dnx7k/exploring_the_option_monad_with_rust/)
+* [Hacker News Post](https://news.ycombinator.com/item?id=8187106)
 
 
 ## Further Resources:
