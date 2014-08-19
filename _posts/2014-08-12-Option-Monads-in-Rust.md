@@ -32,7 +32,7 @@ fn main () {
     // Ways to create an Option containing an int.
     let w = Some(3i); // Something
     let x: Option<int> = None; // Nothing
-    // Recieve from function.
+    // Receive from function.
     let y = some_on_even(2); // Something
     let z = some_on_even(3); // Nothing
 }
