@@ -81,11 +81,11 @@ That's a very good question. What are the benefits of this paradigm?
 * **Values aren't boxed.** `Option` values don't wrap pointers, they wrap values. In order to have a `null`, you necessarily need a pointer. ([Thanks cmr!](http://www.reddit.com/r/rust/comments/2dnx7k/exploring_the_option_monad_with_rust/cjrca88))
 * **Composition becomes easy.** The `Option` monad becomes much more powerful when it is used in composition, as it's characteristics allow for pipelines to be created which don't need to explicitly handle errors at each step.
 
-Lets take a closer look at the composition idea...
+Let's take a closer look at the composition idea...
 
 ### Composing a Symphony of Functions
 
-Nirvana is being able to compose a series of functions together without introducing a tight dependency between them, such that they could be moved or changed without needing to be concerned with how this might affect the other functions. For example, lets say we have some functions with the following signatures:
+Nirvana is being able to compose a series of functions together without introducing a tight dependency between them, such that they could be moved or changed without needing to be concerned with how this might affect the other functions. For example, let's say we have some functions with the following signatures:
 
 ```rust
 fn log(value: f64)     -> f64; // This could fail. (log(-2) == ??)
@@ -122,7 +122,7 @@ fn main () {
 
 In this case, we had two functions which could fail, since we didn't have an `Option` type, the author must be aware of and handle possible `Null` values. Note that the onus was on the programmer to know when a `Null` **might** be returned, and **remember** to handle it, not on the compiler.
 
-Lets see what the same code would look like using the `Option` monad. In this example, all of the functions are appropriately defined.
+Let's see what the same code would look like using the `Option` monad. In this example, all of the functions are appropriately defined.
 
 ```rust
 fn main () {
@@ -167,7 +167,7 @@ fn inverse(value: f64) -> f64 {
 
 This code handles all possible result branches cleanly, and the author need not explicitly deal with each possible `None` result, they only need to handle the end result. If any of the functions which may fail (called by `and_then()`) do fail, the rest of the computation is bypassed. Additionally, it makes expressing and understanding the pipeline of computations much easier.
 
-`map` and `and_then` (along with a gamut of other functions listed [here](http://doc.rust-lang.org/std/option/type.Option.html)) provide a robust set of tools for composing functions together. Lets take a look, their signatures are below.
+`map` and `and_then` (along with a gamut of other functions listed [here](http://doc.rust-lang.org/std/option/type.Option.html)) provide a robust set of tools for composing functions together. Let's take a look, their signatures are below.
 
 ```rust
 fn map<U>     (self, f: |T| -> U)         -> Option<U>
